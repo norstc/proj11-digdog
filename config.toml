@@ -46,8 +46,8 @@ paginate = 5
 [languages]
   [languages.en]
     languageName = "English"
-    title = "Terminal"
-    subtitle = "A simple, retro theme for Hugo"
+    title = "Digdog"
+    subtitle = "挖呀挖"
     owner = ""
     keywords = ""
     copyright = ""
