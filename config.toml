@@ -1,72 +1,106 @@
 baseurl = "/"
 languageCode = "en-us"
-theme = "terminal"
-paginate = 5
+theme = "relearn"
+
+[outputs]
+  home = ['html', 'rss', 'search', 'searchpage']
 
 [params]
-  # dir name of your main content (default is `content/posts`).
-  # the list of set content will show up on your index page (baseurl).
-  contentTypeName = "posts"
+  additionalContentLanguage = ['en']
+  alwaysopen = ''
+  breadcrumbSeparator = '>'
+  collapsibleMenu = true
+  customMathJaxURL = ''
+  customMermaidURL = ''
+  customOpenapiURL = ''
+  description = 'Documentation for Hugo Relearn Theme'
+  disableAssetsBusting = false
+  disableBreadcrumb = false
+  disableExplicitIndexURLs = false
+  disableGeneratorVersion = false
+  disableHoverBlockCopyToClipBoard = false
+  disableInlineCopyToClipBoard = true
+  disableLandingPageButton = true
+  disableLanguageSwitchingButton = false
+  disableMathJax = true
+  disableMermaid = true
+  disableNextPrev = false
+  disableOpenapi = true
+  disableRandomIds = false
+  disableRootBreadcrumb = true
+  disableSearch = false
+  disableSearchHiddenPages = false
+  disableSeoHiddenPages = true
+  disableShortcutsTitle = false
+  disableTagHiddenPages = false
+  disableTermBreadcrumbs = false
+  disableToc = false
+  editURL = ''
+  externalLinkTarget = '_blank'
+  highlightWrap = true
+  images = ['images/hero.png']
+  mathJaxInitialize = '{}'
+  mermaidInitialize = '{ "securityLevel": "loose" }'
+  mermaidZoom = true
+  ordersectionsby = 'weight'
+  showVisitedLinks = true
+  themeVariantModifier = ''
+  titleSeparator = '::'
 
-  # ["orange", "blue", "red", "green", "pink"]
-  themeColor = "orange"
+  [params.author]
+    name = 'Digdog'
 
-  # if you set this to 0, only submenu trigger will be visible
-  showMenuItems = 2
+  [params.image]
+    errorlevel = 'warning'
 
-  # show selector to switch language
-  showLanguageSelector = false
+  [params.imageEffects]
+    border = true
+    lightbox = true
+    shadow = false
 
-  # set theme to full screen width
-  fullWidthTheme = true
+  [params.link]
+    errorlevel = 'warning'
 
-  # center theme with default width
-  centerTheme = false
+  [params.social]
+    facebook_admin = ''
+    twitter = ''
 
-  # set a custom favicon (default is a `themeColor` square)
-  # favicon = "favicon.ico"
+[[params.themeVariant]]
+    auto = []
+    identifier = 'relearn-auto'
+    name = 'Relearn Light/Dark'
 
-  # set post to show the last updated
-  # If you use git, you can set `enableGitInfo` to `true` and then post will automatically get the last updated
-  showLastUpdated = false
-  # Provide a string as a prefix for the last update date. By default, it looks like this: 2020-xx-xx [Updated: 2020-xx-xx] :: Author
-  updatedDatePrefix = "Updated"
+[[params.themeVariant]]
+    identifier = 'relearn-light'
 
-  # set all headings to their default size (depending on browser settings)
-  # it's set to `true` by default
-  # oneHeadingSize = false
+[[params.themeVariant]]
+    identifier = 'relearn-dark'
 
-[params.twitter]
-  # set Twitter handles for Twitter cards
-  # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
-  # do not include @
-  creator = ""
-  site = ""
+[[params.themeVariant]]
+    identifier = 'relearn-bright'
 
-[languages]
-  [languages.en]
-    languageName = "English"
-    title = "Digdog"
-    subtitle = "挖呀挖"
-    owner = ""
-    keywords = ""
-    copyright = ""
-    menuMore = "Show more"
-    readMore = "Read more"
-    readOtherPosts = "Read other posts"
-    missingContentMessage = "Page not found..."
-    missingBackButtonLabel = "Back to home page"
+[[params.themeVariant]]
+    auto = ['zen-light', 'zen-dark']
+    identifier = 'zen-auto'
+    name = 'Zen Light/Dark'
 
-    [languages.en.params.logo]
-      logoText = "Digdog"
-      logoHomeLink = "/"
+[[params.themeVariant]]
+    identifier = 'zen-light'
 
-    [languages.en.menu]
-      [[languages.en.menu.main]]
-        identifier = "about"
-        name = "About"
-        url = "/about"
-      [[languages.en.menu.main]]
-        identifier = "showcase"
-        name = "Showcase"
-        url = "/showcase"
+[[params.themeVariant]]
+    identifier = 'zen-dark'
+
+[[params.themeVariant]]
+    identifier = 'neon'
+
+[[params.themeVariant]]
+    identifier = 'learn'
+
+[[params.themeVariant]]
+    identifier = 'blue'
+
+[[params.themeVariant]]
+    identifier = 'green'
+
+[[params.themeVariant]]
+    identifier = 'red'

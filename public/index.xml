@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Terminal</title>
-    <link>/</link>
-    <description>Recent content on Terminal</description>
+    <title></title>
+    <link>//localhost:1313/index.html</link>
+    <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Mar 2024 13:14:05 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hello World</title>
-      <link>/posts/hello-world/</link>
-      <pubDate>Mon, 04 Mar 2024 13:14:05 +0800</pubDate>
-      
-      <guid>/posts/hello-world/</guid>
-      <description>Hello world </description>
-      <content>&lt;h2 id=&#34;hello-world&#34;&gt;Hello world&lt;/h2&gt;
-</content>
+      <title>About</title>
+      <link>//localhost:1313/about/index.html</link>
+      <pubDate>Mon, 04 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/about/index.html</guid>
+      <description>关于我们 </description>
     </item>
-    
+    <item>
+      <title>Posts</title>
+      <link>//localhost:1313/posts/index.html</link>
+      <pubDate>Mon, 04 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Showcase</title>
+      <link>//localhost:1313/showcase/index.html</link>
+      <pubDate>Mon, 04 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/showcase/index.html</guid>
+      <description>AI在教育行业的应用 </description>
+    </item>
   </channel>
 </rss>
