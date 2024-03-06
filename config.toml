@@ -1,106 +1,99 @@
-baseurl = "/"
-languageCode = "en-us"
-theme = "relearn"
+baseURL = 'http://digdog.cc'
+title = 'digdog'
+theme = 'my-book'
+defaultContentLanguage = 'zh'
+# Book configuration
+disablePathToLower = true
+enableGitInfo = true
 
-[outputs]
-  home = ['html', 'rss', 'search', 'searchpage']
+# Needed for mermaid/katex shortcodes
+[markup]
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.tableOfContents]
+  startLevel = 1
+
+# Multi-lingual mode config
+# There are different options to translate files
+# See https://gohugo.io/content-management/multilingual/#translation-by-filename
+# And https://gohugo.io/content-management/multilingual/#translation-by-content-directory
+[languages]
+[languages.en]
+  languageName = 'English'
+  contentDir = 'content.en'
+  weight = 2
+
+[languages.zh]
+  languageName = 'Chinese'
+  contentDir = 'content.zh'
+  weight = 1
 
 [params]
-  additionalContentLanguage = ['en']
-  alwaysopen = ''
-  breadcrumbSeparator = '>'
-  collapsibleMenu = true
-  customMathJaxURL = ''
-  customMermaidURL = ''
-  customOpenapiURL = ''
-  description = 'Documentation for Hugo Relearn Theme'
-  disableAssetsBusting = false
-  disableBreadcrumb = false
-  disableExplicitIndexURLs = false
-  disableGeneratorVersion = false
-  disableHoverBlockCopyToClipBoard = false
-  disableInlineCopyToClipBoard = true
-  disableLandingPageButton = true
-  disableLanguageSwitchingButton = false
-  disableMathJax = true
-  disableMermaid = true
-  disableNextPrev = false
-  disableOpenapi = true
-  disableRandomIds = false
-  disableRootBreadcrumb = true
-  disableSearch = false
-  disableSearchHiddenPages = false
-  disableSeoHiddenPages = true
-  disableShortcutsTitle = false
-  disableTagHiddenPages = false
-  disableTermBreadcrumbs = false
-  disableToc = false
-  editURL = ''
-  externalLinkTarget = '_blank'
-  highlightWrap = true
-  images = ['images/hero.png']
-  mathJaxInitialize = '{}'
-  mermaidInitialize = '{ "securityLevel": "loose" }'
-  mermaidZoom = true
-  ordersectionsby = 'weight'
-  showVisitedLinks = true
-  themeVariantModifier = ''
-  titleSeparator = '::'
+  # (Optional, default light) Sets color theme: light, dark or auto.
+  # Theme 'auto' switches between dark and light modes based on browser/os preferences
+  BookTheme = 'light'
 
-  [params.author]
-    name = 'Digdog'
+  # (Optional, default true) Controls table of contents visibility on right side of pages.
+  # Start and end levels can be controlled with markup.tableOfContents setting.
+  # You can also specify this parameter per page in front matter.
+  BookToC = true
 
-  [params.image]
-    errorlevel = 'warning'
+  # (Optional, default none) Set the path to a logo for the book. If the logo is
+  # /static/logo.png then the path would be logo.png
+  # BookLogo = 'logo.png'
 
-  [params.imageEffects]
-    border = true
-    lightbox = true
-    shadow = false
+  # (Optional, default none) Set leaf bundle to render as side menu
+  # When not specified file structure and weights will be used
+  # BookMenuBundle = '/menu'
 
-  [params.link]
-    errorlevel = 'warning'
+  # (Optional, default docs) Specify root page to render child pages as menu.
+  # Page is resoled by .GetPage function: https://gohugo.io/functions/getpage/
+  # For backward compatibility you can set '*' to render all sections to menu. Acts same as '/'
+  BookSection = 'docs'
 
-  [params.social]
-    facebook_admin = ''
-    twitter = ''
+  # Set source repository location.
+  # Used for 'Last Modified' and 'Edit this page' links.
+  # BookRepo = ''
 
-[[params.themeVariant]]
-    auto = []
-    identifier = 'relearn-auto'
-    name = 'Relearn Light/Dark'
+  # (Optional, default 'commit') Specifies commit portion of the link to the page's last modified
+  # commit hash for 'doc' page type.
+  # Requires 'BookRepo' param.
+  # Value used to construct a URL consisting of BookRepo/BookCommitPath/<commit-hash>
+  # Github uses 'commit', Bitbucket uses 'commits'
+  # BookCommitPath = 'commit'
 
-[[params.themeVariant]]
-    identifier = 'relearn-light'
+  # Enable "Edit this page" links for 'doc' page type.
+  # Disabled by default. Uncomment to enable. Requires 'BookRepo' param.
+  # Edit path must point to root directory of repo.
+  BookEditPath = 'edit/main/exampleSite'
 
-[[params.themeVariant]]
-    identifier = 'relearn-dark'
+  # Configure the date format used on the pages
+  # - In git information
+  # - In blog posts
+  BookDateFormat = 'January 2, 2006'
 
-[[params.themeVariant]]
-    identifier = 'relearn-bright'
+  # (Optional, default true) Enables search function with flexsearch,
+  # Index is built on fly, therefore it might slowdown your website.
+  # Configuration for indexing can be adjusted in i18n folder per language.
+  BookSearch = true
 
-[[params.themeVariant]]
-    auto = ['zen-light', 'zen-dark']
-    identifier = 'zen-auto'
-    name = 'Zen Light/Dark'
+  # (Optional, default true) Enables comments template on pages
+  # By default partals/docs/comments.html includes Disqus template
+  # See https://gohugo.io/content-management/comments/#configure-disqus
+  # Can be overwritten by same param in page frontmatter
+  BookComments = true
 
-[[params.themeVariant]]
-    identifier = 'zen-light'
+  # /!\ This is an experimental feature, might be removed or changed at any time
+  # (Optional, experimental, default false) Enables portable links and link checks in markdown pages.
+  # Portable links meant to work with text editors and let you write markdown without {{< relref >}} shortcode
+  # Theme will print warning if page referenced in markdown does not exists.
+  BookPortableLinks = true
 
-[[params.themeVariant]]
-    identifier = 'zen-dark'
+  # /!\ This is an experimental feature, might be removed or changed at any time
+  # (Optional, experimental, default false) Enables service worker that caches visited pages and resources for offline use.
+  BookServiceWorker = true
 
-[[params.themeVariant]]
-    identifier = 'neon'
-
-[[params.themeVariant]]
-    identifier = 'learn'
-
-[[params.themeVariant]]
-    identifier = 'blue'
-
-[[params.themeVariant]]
-    identifier = 'green'
-
-[[params.themeVariant]]
-    identifier = 'red'
+  # /!\ This is an experimental feature, might be removed or changed at any time
+  # (Optional, experimental, default false) Enables a drop-down menu for translations only if a translation is present.
+  BookTranslatedOnly = false
