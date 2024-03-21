@@ -508,8 +508,6 @@ public class BlackIpNginxController {
 }
 ```
 
-
-
 ### 前端Thymeleaf
 
 前端使用thymeleaf 模板框架， 自动翻译html返回给浏览器

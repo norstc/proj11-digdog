@@ -101,7 +101,7 @@ download zip -> p02-activemq.zip
 
 将 p02-activemq.zip 解压到  E:\zjh\quarkus-ws
 
-进入改目录， 启动 vscode 
+进入改目录， 启动 vscode
 
 ```shell
 E:\zjh\quarkus-ws\p02-activemq>code .
