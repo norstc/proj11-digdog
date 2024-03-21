@@ -355,6 +355,224 @@ public class P02ActivemqOpenwireApplication implements CommandLineRunner {
 
 ```
 
-## Web程序- REST API
+## Web程序
 
-## 数据库程序 - MySQL
+实现一个简单的黑名单IP地址列表页，使用springboot 结合MySQL, themleaf 做一个简单web app
+
+### 数据库 - MySQL
+
+首先是数据库建表，最简单的方式做一个表， 只有两个字段， 第一个id， 自增长， 主键， 第二个 ip地址， unique（去重）
+
+```sql
+CREATE TABLE `em_black_ip_ng` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `black_ip_ng` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `black_ip_ng` (`black_ip_ng`)
+) ENGINE=InnoDB AUTO_INCREMENT=6867 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+```
+
+然后常用的sql语句，增删改查， 先用sql 玩一下
+
+```sql
+-- ip查询
+-- 查询全部
+select * from em_black_ip_ng;
+-- 查询指定ip
+select * from em_black_ip_ng where black_ip_ng = '82.156.34.174';
+
+-- 新增ng 黑名单ip
+-- 注意这里的ignore， 未包含的会新增，包含的会自动跳过
+insert ignore into em_black_ip_ng (black_ip_ng) values ('39.144.50.62');
+
+-- 删除 ip
+delete from em_black_ip_ng where id = 3307;
+
+-- 修改ip 82.156.34.174
+select * from em_black_ip_ng where id = 6859;
+update em_black_ip_ng set black_ip_ng = '82.156.34.174' where id = 6859;
+```
+
+### 后端java:  Model + Repository + Controller
+
+mysql表大概知道后就可以写java了
+
+使用spring initializr 建立一个项目， 主要选择 web， jdbc，thymeleaf就可以
+
+先是model
+
+```java
+package com.stt.euopmock.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="em_black_ip_ng")
+public class BlackIpNginx {
+ @Id
+ @Column(name="id")
+ @GeneratedValue(strategy=GenerationType.IDENTITY)
+ private Long id;
+ 
+ //nginx配置的黑名单ip
+ private String blackIpNg;
+
+ public Long getId() {
+  return id;
+ }
+
+ public void setId(Long id) {
+  this.id = id;
+ }
+
+ public String getBlackIpNg() {
+  return blackIpNg;
+ }
+
+ public void setBlackIpNg(String blackIpNg) {
+  this.blackIpNg = blackIpNg;
+ }
+
+ @Override
+ public String toString() {
+  return "BlackIpNginx [id=" + id + ", blackIpNg=" + blackIpNg + "]";
+ }
+ 
+ 
+
+}
+
+```
+
+然后是repository, 这里直接用springboot 内置的的CrudRepository, 简单的查询都是自动翻译， 不需要写sql了
+
+```java
+package com.stt.euopmock.repository;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.stt.euopmock.model.BlackIpNginx;
+
+@Repository
+public interface BlackIpNginxRepository extends CrudRepository<BlackIpNginx,Long>{
+ //查询所有ip， 
+ List<BlackIpNginx> findAll();
+ 
+ //查询所有ip， 按id排序，从大到小, 注意第一个by， findall后面先跟一个by才能用orderby
+ List<BlackIpNginx> findAllByOrderById();
+  
+
+}
+
+```
+
+最后是controller
+
+```java
+package com.stt.euopmock.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.stt.euopmock.model.BlackIpNginx;
+import com.stt.euopmock.repository.BlackIpNginxRepository;
+
+@Controller
+@RequestMapping("/blackipnginx")
+public class BlackIpNginxController {
+ 
+ @Autowired
+ private BlackIpNginxRepository blackIpNginxRepository;
+ 
+ //打开ip列表页
+ @GetMapping("/blackipnginxlist")
+ public String getBlackIpNginxList(Model model) {
+  List<BlackIpNginx> blackIpNginxList = blackIpNginxRepository.findAllByOrderById();
+  model.addAttribute("blackIpNginxList",blackIpNginxList);
+  return "blackipnginx/blackipnginxlist";
+ }
+
+}
+```
+
+
+
+### 前端Thymeleaf
+
+前端使用thymeleaf 模板框架， 自动翻译html返回给浏览器
+
+```html
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ <title>BlackIpNginx</title>
+ <meta http-equiv="Refresh" content="600"/>
+
+ <div th:replace="fragments/header :: header-css"></div>
+
+</head>
+<body>
+
+ <div th:replace="fragments/header :: header"></div>
+
+ <div class="container">
+  <nav class="navbar navbar-expand navbar-dark bg-dark"
+   aria-label="Second navbar example">
+   <div class="container-fluid">
+    <a class="navbar-brand" href="#">BlackIpNginx</a>
+    <button class="navbar-toggler" type="button"
+     data-bs-toggle="collapse" data-bs-target="#navbarsExample02"
+     aria-controls="navbarsExample02" aria-expanded="false"
+     aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample02">
+     <ul class="navbar-nav me-auto">
+      <li class="nav-item"><a class="nav-link"
+       aria-current="page" href="/blackipnginx/blackipnginxlist">BlackIpNginxList</a></li>
+     </ul>
+     <form>
+      <input class="form-control" type="text" placeholder="Search"
+       aria-label="Search">
+     </form>
+    </div>
+   </div>
+  </nav>
+
+  <table class="table table-stripted">
+   <thead>
+    <tr>
+     <th scope="col">行号</th>
+     <th scope="col">Ip</th>
+     
+    </tr>
+   </thead>
+   <tbody>
+    <tr th:each="blackIpNginx:${blackIpNginxList}">
+     <th scope="row" th:text="${blackIpNginx.id}"></th>
+     <td th:text="${blackIpNginx.blackIpNg}"></td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
+ <!-- /.container -->
+
+ <div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
+```
