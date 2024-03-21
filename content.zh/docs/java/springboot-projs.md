@@ -214,12 +214,12 @@ import org.springframework.core.annotation.Order;
 @FunctionalInterface
 public interface ApplicationRunner extends Runner {
 
-	/**
-	 * Callback used to run the bean.
-	 * @param args incoming application arguments
-	 * @throws Exception on error
-	 */
-	void run(ApplicationArguments args) throws Exception;
+ /**
+  * Callback used to run the bean.
+  * @param args incoming application arguments
+  * @throws Exception on error
+  */
+ void run(ApplicationArguments args) throws Exception;
 
 }
 
@@ -258,8 +258,103 @@ interface Runner {
 }
 ```
 
+## 消息服务器ActiveMQ
+
+建立项目： 使用spring initializr https://start.spring.io/
+
+Maven
+java
+springboot 3.2.3
+jar
+jdk21
+
+依赖项选择
+Spring for Apache Activemq 5
+
+使用命令行方式，第一个参数是队列名， 第二个参数是文本消息
+
+```java
+package com.digdog.p02activemqopenwire;
+
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.jms.connection.CachingConnectionFactory;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
+
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
+import jakarta.jms.Session;
+import jakarta.jms.TextMessage;
+
+@SpringBootApplication
+public class P02ActivemqOpenwireApplication implements CommandLineRunner {
+
+ private static Logger LOG = LoggerFactory.getLogger(P02ActivemqOpenwireApplication.class);
+
+ public static void main(String[] args) {
+  SpringApplication.run(P02ActivemqOpenwireApplication.class, args);
+ }
+
+ @Override
+ public void run(String... args) throws Exception {
+  if (args.length < 2) {
+   LOG.info("need two args");
+   return;
+  } else {
+   LOG.info("started running");
+   String queName = args[0];
+   String message = args[1];
+
+   LOG.info("que is {}, message is {}", queName, message);
+
+   // 消息服务器地址
+   String BROKER_URL = "tcp://192.168.1.200:61616";
+   String BROKER_USERNAME = "admin";
+   String BROKER_PASSWORD = "admin";
+
+   // ActiveMQConnectionFactory:
+   ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
+   activeMQConnectionFactory.setBrokerURL(BROKER_URL);
+   activeMQConnectionFactory.setUserName(BROKER_USERNAME);
+   activeMQConnectionFactory.setPassword(BROKER_PASSWORD);
+
+   // CachingConnectionFactory
+   // 使用这个后 springboot 会自动管理， 发完消息后，不会自动停止， 需要手动ctrl+c 停止程序
+   CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(activeMQConnectionFactory);
+   cachingConnectionFactory.setSessionCacheSize(10);
+
+   // JmsTemplate
+   JmsTemplate jmsTemplate = new JmsTemplate();
+   jmsTemplate.setConnectionFactory(cachingConnectionFactory);
+
+   // MessageCreator
+   MessageCreator messageCreator = new MessageCreator() {
+
+    @Override
+    public Message createMessage(Session session) throws JMSException {
+     TextMessage textMessage = session.createTextMessage(message);
+     return textMessage;
+    }
+
+   };
+   jmsTemplate.setTimeToLive(10);
+
+   // 发送消息
+   jmsTemplate.send(queName, messageCreator);
+  }
+
+  LOG.info("end running");
+ }
+
+}
+
+```
+
 ## Web程序- REST API
 
 ## 数据库程序 - MySQL
-
-## 消息服务器ActiveMQ
