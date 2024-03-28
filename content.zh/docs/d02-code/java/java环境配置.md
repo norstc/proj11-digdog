@@ -35,24 +35,32 @@ OpenJDK 64-Bit Server VM (build 21.0.2+13-58, mixed mode, sharing)
 
 Linux/X64： openjdk-21.0.2_linux-x64_bin.tar.gz
 
-拷贝到 /home/admin/openjdk-21.0.2_linux-x64_bin.tar.gz
+使用root 账号
 
-解压到 /home/admin
+拷贝到 /usr/openjdk-21.0.2_linux-x64_bin.tar.gz
+
+解压到 /usr
 
 ```shell
-cd /home/admin
+cd /usr
 tar -xvzf openjdk-21.0.2_linux-x64_bin.tar.gz
 ```
 
 然后修改全部用户公用的配置文件 `vim /etc/profile`
 
 ```profile
-export JAVA_HOME=/home/admin/jdk-21.0.2
+export JAVA_HOME=/usr/jdk-21.0.2
 export PATH=$JAVA_HOME/bin:$PATH
-export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export CLASSPATH=.
 ```
 
-使用 `java --version`
+使用source 更新配置
+
+```shell
+source /etc/profile
+```
+
+使用 `java --version` 查看java 版本
 
 ```shell
 java -version

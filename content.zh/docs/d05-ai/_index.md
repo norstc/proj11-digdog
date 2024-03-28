@@ -1,7 +1,7 @@
 ---
-weight: 4
+weight: 5
 bookFlatSection: true
-title: "ai"
+title: "人工智能"
 ---
 
 ## 如何评价大数据模型？
