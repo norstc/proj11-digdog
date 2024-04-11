@@ -72,6 +72,19 @@ admin:x:1001:1001::/home/admin:/bin/bash
 passwd admin
 ```
 
+修改用户所属的用户组
+
+```shell
+#查看用户
+id iop_dq
+
+#查看用户主配置
+cat /etc/passwd | grep iop_dq
+
+#修改用户iop_dq 的用户组为 superuser
+usermod -g superuser iop_dq
+```
+
 ## 更改密码 passwd
 
 修改当前用户密码
