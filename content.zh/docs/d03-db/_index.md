@@ -5,6 +5,14 @@ weight: 3
 
 ## MySQL
 
+出现 提示：mysqladmin flush-hosts
+
+管理员账号登录后，执行
+
+```shell
+flush hosts;
+```
+
 ## ClickHouse
 
 查询示例：将时间按 interval设置取整， 统计某段时间内 不同 return_code 的数量

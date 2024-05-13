@@ -300,3 +300,29 @@ INFO[2024-04-28T10:44:10.353739840+08:00] shim reaped                           
 INFO[2024-04-28T10:44:10.359891137+08:00] ignoring event                                module=libcontainerd namespace=moby topic=/tasks/delete type="*events.TaskDelete"
 ```
 
+## 安装kubectl
+
+下载
+
+```shell
+[root@localhost minikube-installer]# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   138  100   138    0     0    425      0 --:--:-- --:--:-- --:--:--   425
+100 49.0M  100 49.0M    0     0  4159k      0  0:00:12  0:00:12 --:--:-- 4075k
+```
+
+安装
+
+```shell
+[root@localhost minikube-installer]# install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
+
+检查版本
+
+```shell
+[root@localhost minikube-installer]# kubectl version
+Client Version: v1.30.0
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+Server Version: v1.30.0
+```
