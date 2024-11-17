@@ -18,3 +18,7 @@ Run
 
 to set your account's default identity.
 Omit --global to set the identity only in this repository.
+
+
+Failed to connect to github.com port 443 after 21079 ms: Could not connect to server
+
