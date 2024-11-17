@@ -35,3 +35,5 @@ Failed to connect to github.com port 443 after 21079 ms: Could not connect to se
 OpenSSL SSL_read: SSL_ERROR_SYSCALL, errno 0
 
 直接重启电脑后开起科学上网
+
+但是有时会连不上远程github
